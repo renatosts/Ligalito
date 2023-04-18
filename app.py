@@ -24,8 +24,8 @@ def getFile(f):
     return pd.read_csv(f, sep=';', thousands='.', decimal=',', encoding='Latin-1')
 
 
-f = 'https://raw.githubusercontent.com/renatosts/Fundamental_USA/main/DadosFinanceirosEUA.csv'
-f = 'cartola.csv'
+f = 'https://raw.githubusercontent.com/renatosts/Ligalito/master/cartola.csv'
+#f = 'cartola.csv'
 
 cart = getFile(f)
 cart = cart.sort_values(['cart_nome', 'cart_rodada'])
