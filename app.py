@@ -59,7 +59,30 @@ for nome in cart.cart_nome.drop_duplicates():
     fig2.add_trace(
         go.Scatter(x=df.cart_rodada, y=df.cart_patr, name=nome))
 
-st.plotly_chart(fig1, use_container_width=True)
+fig1.update_layout(title='Pontos')
+fig2.update_layout(title='Patrimônio')
 
-st.plotly_chart(fig2, use_container_width=True)
+fig1.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1))
 
+fig2.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1))
+
+fig1.update_xaxes(scaleratio = 1)
+fig2.update_xaxes(scaleratio = 1)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.plotly_chart(fig1, use_container_width=True)
+
+with col2:
+    st.plotly_chart(fig2, use_container_width=True)
