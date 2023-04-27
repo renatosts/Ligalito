@@ -46,6 +46,8 @@ df = df.sort_values(['Total', 'cart_nome'], ascending=[False, True])
 
 df = df[['cart_nome', 'Total'] + colunas]
 
+df.columns = ['cart_nome', 'Total'] + [str(i) for i in colunas]
+
 df = df.set_index('cart_nome')
 
 df_aux = df
