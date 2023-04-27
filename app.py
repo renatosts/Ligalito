@@ -12,6 +12,9 @@ def define_color(val):
         color = 'gray'
     return 'color: %s' % color
 
+def set_color_patrim(val):
+    return 'color: %s' % 'olive'
+
 
 @st.cache(persist=True)
 def getFile(f):
@@ -35,6 +38,8 @@ cart['cart_acum'] = round(cart.groupby(['cart_nome'])['cart_pontos'].cumsum(), 2
 
 ult_rodada = cart.cart_rodada.max()
 
+patr = cart[cart.cart_rodada == ult_rodada][['cart_nome', 'cart_patr']]
+
 df = cart[cart.cart_rodada != 0].pivot(values='cart_pontos', index='cart_nome', columns='cart_rodada').reset_index()
 
 colunas = [i for i in range(1, ult_rodada + 1)]
@@ -44,9 +49,11 @@ df['Total'] = df[colunas].sum(axis=1)
 
 df = df.sort_values(['Total', 'cart_nome'], ascending=[False, True])
 
-df = df[['cart_nome', 'Total'] + colunas]
+df = df.merge(patr, on='cart_nome')
 
-df.columns = ['cart_nome', 'Total'] + [str(i) for i in colunas]
+df = df[['cart_nome', 'Total', 'cart_patr'] + colunas]
+
+df.columns = ['cart_nome', 'Total', 'Patrim'] + [str(i) for i in colunas]
 
 df = df.set_index('cart_nome')
 
@@ -54,8 +61,8 @@ df_aux = df
 
 df_aux = df_aux.style.format(thousands='.',
                              decimal = ',',
-                             precision=2).applymap(define_color, subset=['Total'])
-
+                             precision=2,
+                            ).applymap(define_color, subset=['Total']).applymap(set_color_patrim, subset=['Patrim'])
 
 st.dataframe(df_aux)
 
