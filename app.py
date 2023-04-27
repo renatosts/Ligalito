@@ -29,17 +29,15 @@ f = 'https://raw.githubusercontent.com/renatosts/Ligalito/master/cartola.csv'
 
 cart = getFile(f)
 
-cart.cart_rodada = cart.cart_rodada.astype(str)
-
 cart = cart.sort_values(['cart_nome', 'cart_rodada'])
 
 cart['cart_acum'] = round(cart.groupby(['cart_nome'])['cart_pontos'].cumsum(), 2)
 
-ult_rodada = int(cart.cart_rodada.max())
+ult_rodada = cart.cart_rodada.max()
 
-df = cart[cart.cart_rodada != '0'].pivot(values='cart_pontos', index='cart_nome', columns='cart_rodada').reset_index()
+df = cart[cart.cart_rodada != 0].pivot(values='cart_pontos', index='cart_nome', columns='cart_rodada').reset_index()
 
-colunas = [str(i) for i in range(1, ult_rodada + 1)]
+colunas = [i for i in range(1, ult_rodada + 1)]
 colunas.sort(reverse=True)
 
 df['Total'] = df[colunas].sum(axis=1)
@@ -56,8 +54,6 @@ df_aux = df_aux.style.format(thousands='.',
                              decimal = ',',
                              precision=2).applymap(define_color, subset=['Total'])
 
-
-#st.header('LIGALITO')
 
 st.dataframe(df_aux)
 
