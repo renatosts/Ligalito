@@ -53,9 +53,9 @@ df = df.merge(patr, on='cart_nome')
 
 df = df[['cart_nome', 'cart_patr', 'Total'] + colunas]
 
-df.columns = ['cart_nome', 'Patrim', 'Total'] + [str(i) for i in colunas]
+df.columns = ['Nome', 'Patrim', 'Total'] + [str(i) for i in colunas]
 
-df = df.set_index('cart_nome')
+df = df.set_index('Nome')
 
 df_aux = df
 
