@@ -16,7 +16,7 @@ def set_color_patrim(val):
     return 'color: %s' % 'olive'
 
 
-@st.cache(persist=True)
+@st.cache_data
 def getFile(f):
     return pd.read_csv(f, sep=';', thousands='.', decimal=',', encoding='Latin-1')
 
@@ -51,9 +51,9 @@ df = df.sort_values(['Total', 'cart_nome'], ascending=[False, True])
 
 df = df.merge(patr, on='cart_nome')
 
-df = df[['cart_nome', 'Total', 'cart_patr'] + colunas]
+df = df[['cart_nome', 'cart_patr', 'Total'] + colunas]
 
-df.columns = ['cart_nome', 'Total', 'Patrim'] + [str(i) for i in colunas]
+df.columns = ['cart_nome', 'Patrim', 'Total'] + [str(i) for i in colunas]
 
 df = df.set_index('cart_nome')
 
