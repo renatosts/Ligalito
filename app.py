@@ -51,9 +51,9 @@ df = df.sort_values(['Total', 'cart_nome'], ascending=[False, True])
 
 df = df.merge(patr, on='cart_nome')
 
-df = df[['cart_nome', 'cart_patr', 'Total'] + colunas]
+df = df[['cart_nome', 'Total', 'cart_patr'] + colunas]
 
-df.columns = ['Nome', 'Patrim', 'Total'] + [str(i) for i in colunas]
+df.columns = ['Nome', 'Total', 'Patrim'] + [str(i) for i in colunas]
 
 df = df.set_index('Nome')
 
@@ -62,7 +62,7 @@ df_aux = df
 df_aux = df_aux.style.format(thousands='.',
                              decimal = ',',
                              precision=2,
-                            ).applymap(define_color, subset=['Total']).applymap(set_color_patrim, subset=['Patrim'])
+                            ).map(define_color, subset=['Total']).map(set_color_patrim, subset=['Patrim'])
 
 st.dataframe(df_aux)
 
