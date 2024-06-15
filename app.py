@@ -16,6 +16,15 @@ def set_color_patrim(val):
     return 'color: %s' % 'olive'
 
 
+def highlight_max(s):
+    is_max = s == s.max()
+    return ['background-color: green' if v else '' for v in is_max]
+
+def highlight_min(s):
+    is_min = s == s.min()
+    return ['background-color: red' if v else '' for v in is_min]
+
+
 @st.cache_data
 def getFile(f):
     return pd.read_csv(f, sep=';', thousands='.', decimal=',', encoding='Latin-1')
@@ -62,7 +71,7 @@ df_aux = df
 df_aux = df_aux.style.format(thousands='.',
                              decimal = ',',
                              precision=2,
-                            ).map(define_color, subset=['Total']).map(set_color_patrim, subset=['Patrim'])
+                            ).map(define_color, subset=['Total']).map(set_color_patrim, subset=['Patrim']).apply(highlight_max, subset=[str(i) for i in colunas]).apply(highlight_min, subset=[str(i) for i in colunas])
 
 st.dataframe(df_aux)
 
@@ -108,3 +117,14 @@ with col1:
 
 with col2:
     st.plotly_chart(fig2, use_container_width=True)
+
+for nome in cart.cart_nome.drop_duplicates():
+    df = cart[(cart.cart_nome == nome) & (cart.cart_rodada != 0)]
+
+    media = df.cart_pontos.mean()
+
+    fig = go.Figure()
+    fig.update_layout(title=f'{nome} (Média: {media:.2f})')
+    fig.add_trace(go.Bar(x=df.cart_rodada, y=df.cart_pontos, name=nome))
+    fig.add_hline(y=media, line_width=3, line_color='red', name='Media')
+    st.plotly_chart(fig, use_container_width=True)
