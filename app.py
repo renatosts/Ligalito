@@ -1,6 +1,6 @@
-import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import streamlit as st
 
 
 def define_color(val):
@@ -81,8 +81,8 @@ fig1 = go.Figure()
 fig2 = go.Figure()
 
 for nome in cart.cart_nome.drop_duplicates():
-    df = cart[cart.cart_nome == nome]
 
+    df = cart[cart.cart_nome == nome].tail(10)
 
     fig1.add_trace(
         go.Scatter(x=df.cart_rodada, y=df.cart_acum, name=nome))
