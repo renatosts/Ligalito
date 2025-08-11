@@ -1,18 +1,7 @@
 {
-    "sqltools.connections": [
-        {
-            "mysqlOptions": {
-                "authProtocol": "default"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "askForPassword": true,
-            "driver": "MySQL",
-            "name": "Investimentos",
-            "database": "Investimentos",
-            "username": "admin"
-        }
-    ],
-    "python.analysis.typeCheckingMode": "basic"
+    "workbench.editor.enablePreview": false,
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "python-envs.defaultPackageManager": "ms-python.python:pip",
+    "python-envs.pythonProjects": []
 }

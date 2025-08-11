@@ -4,15 +4,13 @@
     // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "name": "Streamlit",
-            "type": "debugpy",
+            "name": "Python: Arquivo Atual",
+            "type": "python",
             "request": "launch",
-            "program": "C:\\Users\\Renato\\Documents\\_Projetos Github\\Ligalito\\.venv\\Scripts\\streamlit.exe",
+            "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true,
-            "args": ["run", "app.py"]
+            "justMyCode": true
         }
     ]
 }
